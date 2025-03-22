@@ -4,6 +4,6 @@ import fileUpload from "../../controllers/fileupload/fileupload.js";
 
 const router = Router();
 
-router.post('/upload', fileUpload);
+router.post('/upload',isAuthenticated("user&admin") , fileUpload);
 
 export default router;

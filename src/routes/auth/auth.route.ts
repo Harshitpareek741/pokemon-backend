@@ -9,6 +9,7 @@ const router: Router = Router();
 router.post('/signup', authController.signUp, generateAuthTokens);
 router.post('/login', authController.login, generateAuthTokens);
 router.post('/refresh', authController.refreshAccessToken);
-router.post('/logout', isAuthenticated('user&artist'), authController.logout);
+router.post('/logout', isAuthenticated('user&admin'), authController.logout);
 router.post('/google', authController.googleAuth , generateAuthTokens);
+
 export default router;

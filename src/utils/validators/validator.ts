@@ -31,17 +31,15 @@ export const validateFields = (data: any, requiredFields: string[]): string | nu
   ];
   
 
-export const mandatoryFieldsForEvent = [
-  'image',
-  'title',
-  'date',
-  'location',
-  'city',
-  'time',
+export const mandatoryFieldsForTeam = [
+  'name',
   'description',
-  'type',
-  'capacity',
-  'genere'
+  'members'
+];
+
+export const madatoryFieldsforTeamMemberToJoin = [
+  'teamId',
+  'userId'
 ];
 
 

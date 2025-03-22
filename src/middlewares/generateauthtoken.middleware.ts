@@ -1,6 +1,6 @@
 import { generateJWT } from '../utils/auth/auth.js';
 import User from '../models/User.js';
-import Artist from '../models/Artist.js';
+import Artist from '../models/Admin.js';
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 

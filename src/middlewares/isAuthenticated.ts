@@ -3,7 +3,7 @@ import createError from 'http-errors';
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import User from '../models/User.js';
-import Artist from '../models/Artist.js';
+import Artist from '../models/Admin.js';
 dotenv.config();
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
@@ -13,7 +13,7 @@ interface AuthenticatedRequest extends Request {
   signedCookies: { [key: string]: string };
 }
 
-export const isAuthenticated = (userType: 'user' | 'artist' | 'user&artist') => {
+export const isAuthenticated = (userType: 'user' | 'admin' | 'user&admin') => {
   return async (
     req: AuthenticatedRequest,
     res: Response,
@@ -67,10 +67,10 @@ export const isAuthenticated = (userType: 'user' | 'artist' | 'user&artist') => 
   
  
       let foundUser: any;
-      if (userType === 'artist' || userType === 'user&artist') {
+      if (userType === 'admin' || userType === 'user&admin') {
         foundUser = await Artist.findById(userId);
       } 
-      if(!foundUser && (userType ==='user' || userType === 'user&artist')) {
+      if(!foundUser && (userType ==='user' || userType === 'user&admin')) {
         foundUser = await User.findById(userId);
       }
    

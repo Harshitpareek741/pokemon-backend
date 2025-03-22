@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import { Request, Response, NextFunction } from 'express';
 import User from '../../../models/User.js';
-import Artist from '../../../models/Artist.js';
+import Admin from '../../../models/Admin.js';
 
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { username, password, role } = req.body as { username?: string; password?: string; role?: string };
@@ -12,7 +12,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     }
     let user;
 
-      user = await Artist.findOne({ $or: [{ username }, { email: username }] });
+      user = await Admin.findOne({ $or: [{ username }, { email: username }] });
       if(!user) {
         user = await User.findOne({ $or: [{ username }, { email: username }] });
       }

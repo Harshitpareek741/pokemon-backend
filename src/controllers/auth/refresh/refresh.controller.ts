@@ -4,7 +4,7 @@ import { clearTokens, generateJWT } from '../../../utils/auth/auth.js';
 import { Request, Response, NextFunction } from 'express';
 import User from '../../../models/User.js';
 import dotenv from 'dotenv';
-import Artist from '../../../models/Artist.js';
+import Admin from '../../../models/Admin.js';
 dotenv.config();
 
 interface DecodedToken {
@@ -45,7 +45,7 @@ export const refreshAccessToken = async (
 
       let user = await User.findById(userId);
       if(!user){
-        user = await Artist.findById(userId);
+        user = await Admin.findById(userId);
       }
       if (!user) {
         console.log("yeah");

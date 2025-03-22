@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../../../models/User.js';
-import Artist from '../../../models/Artist.js';
+import Admin from '../../../models/Admin.js';
 import { IUser } from '../../../models/types/IUser.js';
-import { IArtist } from '../../../models/types/IArtist.js';
+import { IAdmin } from '../../../models/types/IAdmin.js';
 import { validateFields, artistRequiredFields, userRequiredFields } from '../../../utils/validators/validator.js';
 
 export const signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { role } = req.body;
-    if (role && role === 'artist') {
+    if (role && role === 'admin') {
       const missingArtist = validateFields(req.body, artistRequiredFields);
       if (missingArtist) {
-        res.status(422).json({ error: `Please fill the required artist field: ${missingArtist}` });
+        res.status(422).json({ error: `Please fill the required admin field: ${missingArtist}` });
         return;
       }
     
@@ -19,55 +19,22 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
         username,
         email,
         password,
-        avatars,
-        city,
-        state,
-        country,
-        pincode,
-        phoneNumber,
-        tag,
-        bio,
-        videoLink1,
-        videoLink2,
-        videoLink3,
-        instagram,
-        twitter,
-        youtube,
-        facebook,
-        tiktok
-      } = req.body as IArtist;
+      } = req.body as IAdmin;
  
-      const artistAlreadyExists = await Artist.findOne({ $or: [{ username }, { email }] });
-      if (artistAlreadyExists) {
+      const adminAlreadyExists = await Admin.findOne({ $or: [{ username }, { email }] });
+      if (adminAlreadyExists) {
         res.status(422).json({ error: 'Username or email already exists' });
         return;
       }
-      const newArtist = await Artist.create({
+      const newAdmin = await Admin.create({
         username,
         email,
         password,
-        role: 'Artist',
-        avatars,
-        city,
-        state,
-        country,
-        pincode,
-        phoneNumber,
-        tag,
-        bio,
-        videoLink1,
-        videoLink2,
-        videoLink3,
-        instagram,
-        twitter,
-        youtube,
-        facebook,
-        tiktok
+        role: 'Admin',
       });
    
-      (req as any).userId = newArtist._id;
+      (req as any).userId = newAdmin._id;
     } else {
-
       const missingUser = validateFields(req.body, userRequiredFields);
       if (missingUser) {
         res.status(422).json({ error: `Please fill the required field: ${missingUser}` });

@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { GenericController } from "../../../controllers/genericController.js";
+import SavedArtist from "../../../models/SavedArtist.js";
+import { isAuthenticated } from "../../../middlewares/isAuthenticated.js";
+import { validateFields } from "../../../middlewares/validation.js";
+import { savedArtistFields } from "../../../utils/validators/validator.js";
+const router = Router();
+const savedArtistController = new GenericController(SavedArtist);
+router.get('/', isAuthenticated('user&admin'), savedArtistController.getByQuery);
+router.post('/create', isAuthenticated('user&admin'), validateFields(savedArtistFields), savedArtistController.create);
+router.post('/delete', isAuthenticated('user&admin'), validateFields(savedArtistFields), savedArtistController.deleteByQuery);
+export default router;

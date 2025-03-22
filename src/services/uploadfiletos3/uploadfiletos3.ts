@@ -17,7 +17,7 @@ const s3Client = new S3Client({
 
 export async function getPresignedUrl(imageName: string, imageType: string) {
   const extension = imageType.split('/')[1];
-  const fileKey = `images/lucky/${imageName}_${Date.now()}.${extension}`;
+  const fileKey = `images/harshit/${imageName}_${Date.now()}.${extension}`;
 
   const command = new PutObjectCommand({
     Bucket: BUCKET_NAME,
